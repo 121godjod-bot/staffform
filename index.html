@@ -1,278 +1,299 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Chill X Staff Application</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <!-- AI neon font + icon -->
-  <link rel="icon" type="image/gif" href="https://images-ext-1.discordapp.net/external/mcL28drH0nyJCD4bcHUmlke8pJTPaa2C9sh7dHrpm5s/%3Fsize%3D1024/https/cdn.discordapp.com/icons/1425112529302192148/a_5049012ee1481686fb0452ccff641f99.gif?width=333&height=333">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chill X — Staff Application</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
-    html, body {
-      background: #0a0a23;
-      color: #fff;
-      min-height: 100vh;
-      font-family: 'Orbitron', Arial, sans-serif;
-      margin:0;padding:0;overflow-x:hidden;
+    :root{
+      --bg:#05101a; --card:#071427; --neon:#00ffd5; --accent:#7c5cff; --muted:#9aa8b2;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
-    body { display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; }
-    .container {
-      max-width: 440px;
-      margin: 45px 8px 25px 8px; padding: 26px 22px 17px 22px;
-      background: rgba(14,14,32,0.93);
-      box-shadow: 0 0 36px #18ffce40, 0 8px 90px #01242c77;
-      border-radius: 24px;
-      z-index:2;
-      width:100%;
-      position: relative;
-    }
-    .logo {
-      width: 80px; display:block; margin:0 auto 8px auto; border-radius:19px;
-      filter: drop-shadow(0 0 25px #40ffe4) brightness(1.3);
-    }
-    h1 {
-      text-align:center;margin:0 0 4px;
-      background: linear-gradient(90deg,#17eaff,#859fff,#12ff7c 60%);
-      background-clip: text; color:transparent; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-      letter-spacing:3px; font-size:2em; text-shadow: 0 0 13px #0994ff70;
-    }
-    .subtitle {text-align:center;color:#b1eaff;font-size:.95em;}
-    .form-group label, .form-group span {
-      color:#43fff7; font-weight:700; font-size:1.07em;
-    }
-    .form-group { margin-bottom: 18px;}
-    .form-group input, .form-group select, .form-group textarea {
-      background:#170044ea; color:#dbfafa; border:0;font-size: 1.06em;
-      border-radius:8px; padding:10px 13px; margin-top:7px;
-      box-shadow: 0 0 7px #11e1d3ba;
-      outline: none; width:100%; 
-      transition: box-shadow .13s, border .15s;
-    }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-      box-shadow:0 0 12px #1bfcff;
-      border:1.3px solid #99f9ff82;
-    }
-    .form-group textarea { min-height:56px;resize: vertical;}
-    .form-group span { color:#f17; font-size:15px;}
-    .expr-inputs { display:flex;gap:7px;align-items:center;}
-    .form-group input[type="number"] { width:85px;}
-    .submit-btn {
-      background: linear-gradient(90deg,#0fffc3 0,#1e8fff 80%);
-      color:#000; border:none; border-radius:12px;padding:12px 30px;font-size:1.1em;
-      font-weight:bold; box-shadow:0 0 32px #1cfff697;
-      margin:20px auto 4px auto;display:block; cursor:pointer;
-      transition: filter .15s, box-shadow .15s;
-    }
-    .submit-btn:disabled { filter:brightness(.83) grayscale(.14);}
-    .capq {margin-bottom:7px;}
-    .form-message {
-      margin-top:29px; font-size:1.05em;text-align:center;color:#ffb951;
-      background:#191930be;border-radius:9px;padding:13px 10px;box-shadow:0 0 12px #16dcff3d;
-      display:none;
-    }
-    .blocked {
-      color:#ff2744;font-size:1.16em;letter-spacing:.5px;text-align:center;padding:45px 0 30px 0;
-      font-weight: 800; text-shadow: 0 0 20px #e6287a80;
-    }
-    @media (max-width:600px) {
-      .container{ max-width:98vw; padding:11vw 3vw 4vw 3vw; border-radius:15px;}
-      .logo{width:53px;}
-      h1{font-size:1.1em;}
-    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:
+      radial-gradient(900px 400px at 10% 10%, rgba(124,92,255,0.06), transparent),
+      linear-gradient(180deg, rgba(0,0,0,0.6), rgba(3,6,10,0.9)),
+      var(--bg); color:#e6f7f5; -webkit-font-smoothing:antialiased;}
+
+    .wrap{max-width:980px;margin:28px auto;padding:20px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:16px;padding:22px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 8px 40px rgba(2,6,12,0.6);display:grid;grid-template-columns:260px 1fr;gap:18px;align-items:start}
+    .panel{padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.012), rgba(0,0,0,0.06));border:1px solid rgba(255,255,255,0.02)}
+    .logo{display:flex;flex-direction:column;align-items:center;gap:10px}
+    .logo img{width:150px;height:150px;border-radius:14px;object-fit:cover;border:1px solid rgba(255,255,255,0.04)}
+    h1{margin:0;font-size:20px}
+    p.lead{margin:0;color:var(--muted)}
+
+    form{display:grid;gap:12px}
+    label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
+    input[type=text],input[type=email],select,textarea{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);padding:12px;border-radius:10px;color:inherit;outline:none;width:100%}
+    textarea{min-height:100px;resize:vertical}
+    .row{display:flex;gap:10px}
+    .btn{display:inline-block;padding:12px 18px;border-radius:10px;background:linear-gradient(90deg,var(--neon),var(--accent));color:#02121a;font-weight:700;border:none;cursor:pointer;box-shadow:0 6px 26px rgba(124,92,255,0.12)}
+    .btn[disabled]{opacity:0.5;cursor:not-allowed}
+    .muted{color:var(--muted)}
+    .capsule{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.02);display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(255,255,255,0.02)}
+    .note{font-size:13px;color:var(--muted)}
+    .success{color:#8ef0a6}
+    .error{color:#ff7373}
+    @media(max-width:860px){.card{grid-template-columns:1fr;padding:16px}.logo{justify-content:center}}
+
+    /* make it slightly annoying to select / right click (cosmetic) */
+    body{user-select:text}
+    .no-select{user-select:none}
   </style>
 </head>
 <body>
-<div class="container" id="formContainer">
-  <img src="https://images-ext-1.discordapp.net/external/mcL28drH0nyJCD4bcHUmlke8pJTPaa2C9sh7dHrpm5s/%3Fsize%3D1024/https/cdn.discordapp.com/icons/1425112529302192148/a_5049012ee1481686fb0452ccff641f99.gif?width=100&height=100" class="logo">
-  <h1>Chill X Staff Application</h1>
-  <div class="subtitle">AI Neon Portal &mdash; One Staff, One Chance</div>
-  <form id="staffForm" autocomplete="off">
-    <div class="form-group">
-      <label for="userid">Your Discord User ID <span>*</span></label>
-      <input type="text" id="userid" name="userid" required pattern="^\d{15,20}$" maxlength="20">
-    </div>
-    <div class="form-group">
-      <label for="username">Your Discord Username <span>*</span></label>
-      <input type="text" id="username" name="username" required maxlength="32">
-    </div>
-    <div class="form-group">
-      <label for="email">Your Email <span>*</span></label>
-      <input type="email" id="email" name="email" required>
-    </div>
-    <div class="form-group">
-      <label for="role">Choose what you want to join as <span>*</span></label>
-      <select id="role" name="role" required>
-        <option value="" disabled selected>--Select--</option>
-        <option value="Chat Staff Team">Chat Staff Team</option>
-        <option value="Vc staff team">Vc staff team</option>
-        <option value="gaming staff team">Gaming staff team</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="why">Why you wanna join us? <span>*</span></label>
-      <textarea id="why" name="why" required maxlength="500"></textarea>
-    </div>
-    <div class="form-group">
-      <label for="ismod">Are you current mod anywhere? <span>*</span></label>
-      <select id="ismod" name="ismod" required>
-        <option value="" disabled selected>--Select--</option>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="experience">What is your experience? <span>*</span></label>
-      <div class="expr-inputs">
-        <input type="number" id="experience" name="experience" min="0" max="50" required>
-        <select id="exp_period" name="exp_period" required>
-          <option value="years">Years</option>
-          <option value="months">Months</option>
-          <option value="days">Days</option>
-        </select>
+  <div class="wrap">
+    <div class="card">
+      <div class="panel logo">
+        <img alt="Chill X Logo" src="https://images-ext-1.discordapp.net/external/mcL28drH0nyJCD4bcHUmlke8pJTPaa2C9sh7dHrpm5s/%3Fsize%3D1024/https/cdn.discordapp.com/icons/1425112529302192148/a_5049012ee1481686fb0452ccff641f99.gif?width=333&height=333">
+        <h1>Chill X — Staff Application</h1>
+        <p class="lead">Dark • Neon • AI theme — Mobile + Desktop</p>
+
+        <div style="width:100%;text-align:center;margin-top:8px">
+          <div id="status" class="capsule muted">Initializing...</div>
+        </div>
+
+        <div style="width:100%;margin-top:10px;text-align:center">
+          <small class="note">All fields required • CAPTCHA required • Submissions limited to 1 per 48 hours</small>
+        </div>
+      </div>
+
+      <div class="panel">
+        <form id="appForm" autocomplete="off">
+          <div>
+            <label>1. Your discord user id.*</label>
+            <input id="discordId" name="discordId" type="text" required />
+          </div>
+
+          <div>
+            <label>2. Your discord username.*</label>
+            <input id="discordUsername" name="discordUsername" type="text" required />
+          </div>
+
+          <div>
+            <label>3. Your email.*</label>
+            <input id="email" name="email" type="email" required />
+          </div>
+
+          <div>
+            <label>4. Choose what you want to join as?*</label>
+            <select id="teamChoice" name="teamChoice" required>
+              <option value="">-- pick a team --</option>
+              <option>Chat Staff Team</option>
+              <option>VC Staff Team</option>
+              <option>Gaming Staff Team</option>
+            </select>
+          </div>
+
+          <div>
+            <label>5. Why you wanna join us?*</label>
+            <textarea id="whyJoin" name="whyJoin" required></textarea>
+          </div>
+
+          <div>
+            <label>6. Are you current mod anywhere?*</label>
+            <div class="row">
+              <label style="display:flex;align-items:center;gap:8px"><input type="radio" name="isModAnywhere" value="Yes" required> Yes</label>
+              <label style="display:flex;align-items:center;gap:8px"><input type="radio" name="isModAnywhere" value="No" required> No</label>
+            </div>
+          </div>
+
+          <div>
+            <label>7. What is your experience?* (number only + unit)</label>
+            <div class="row">
+              <input id="experienceNumber" name="experienceNumber" type="text" placeholder="e.g. 6" required style="flex:1" pattern="\\d+">
+              <select id="experienceUnit" name="experienceUnit" required style="width:150px">
+                <option value="months">Months</option>
+                <option value="days">Days</option>
+                <option value="years">Years</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label>8. Wanna say something</label>
+            <textarea id="extraMessage" name="extraMessage" placeholder="Optional message..." required></textarea>
+          </div>
+
+          <div>
+            <label>CAPTCHA: <span id="captchaQuestion">...</span> *</label>
+            <div class="row">
+              <input id="captchaAnswer" name="captchaAnswer" type="text" placeholder="answer" required style="flex:1">
+              <button type="button" id="regen" class="btn ghost" style="background:transparent;color:var(--neon);border:1px solid rgba(255,255,255,0.04);">New</button>
+            </div>
+            <input type="hidden" id="captchaToken">
+          </div>
+
+          <div style="display:flex;gap:12px;align-items:center;margin-top:6px">
+            <button id="submitBtn" class="btn" type="submit">Submit Application</button>
+            <div id="msg" class="muted"></div>
+          </div>
+
+          <div class="footer" style="margin-top:10px;color:var(--muted);font-size:13px">
+            <em>Note:</em> This page is single-file (client-side). For reliable IP bans, webhooks and anti-spam you should use a small server — browser restrictions (CORS) might block direct webhook requests.
+          </div>
+        </form>
       </div>
     </div>
-    <div class="form-group">
-      <label for="extra">Wanna say something? (optional)</label>
-      <textarea id="extra" name="extra" maxlength="300"></textarea>
-    </div>
-    <div class="form-group">
-      <div class="capq" id="captchaLabel"></div>
-      <input id="captcha" name="captcha" type="text" required autocomplete="off" maxlength="8" pattern="\d+">
-    </div>
-    <button type="submit" class="submit-btn" id="submitBtn">Submit</button>
-    <div class="form-message" id="formMessage"></div>
-  </form>
-</div>
-<script>
-  // -- Anti right-click + inspect + override F12
-  document.addEventListener('contextmenu',e=>e.preventDefault());
-  document.addEventListener('keydown',e=> {
-    if(e.key==="F12"||(e.ctrlKey&&e.shiftKey&&e.key.toLowerCase()==="i")||(e.ctrlKey&&e.key.toLowerCase()==="u")) {
-      e.preventDefault(); return false;
-    }
-  });
-  document.addEventListener('mousedown',function(e){if(e.button===2){e.preventDefault();return false;}});
+  </div>
 
-  // --- Simple Math captcha ----
-  let capA, capB;
-  function genCaptcha() {
-    capA = Math.floor(Math.random()*9)+1;
-    capB = Math.floor(Math.random()*9)+1;
-    document.getElementById('captchaLabel').innerText = `Solve to verify: ${capA} + ${capB} = ?  `;
-    document.getElementById('captcha').value="";
-  }
-  genCaptcha();
+  <script>
+    // ---------- CONFIG ----------
+    // Warning: putting webhook here exposes it publicly. This file is client-only.
+    const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1434902352820699186/R_l_4eMPPU0G7fUe2-QG3S9-uHYDntE8fAk0In4JL8GtFjoJKjsCcK-NCnd7DdWlwo7V';
+    const RATE_LIMIT_MS = 48 * 60 * 60 * 1000; // 48 hours
+    const SUBMIT_KEY = 'chillx_last_submit_v1';
 
-  // --- Block submit for 48h after submission using localStorage (per device) ---
-  const KEY_BAN = 'chillxappl_ban', BAN_HOURS = 48;
-  function banSubmit() {
-    localStorage.setItem(KEY_BAN, Date.now());
-    showBlocked();
-  }
-  function isBanned() {
-    let ban = parseInt(localStorage.getItem(KEY_BAN)||"0");
-    return ban && (Date.now()-ban)<(BAN_HOURS*60*60*1000);
-  }
-  function showBlocked() {
-    let left = ((BAN_HOURS*60*60*1000 - (Date.now()-parseInt(localStorage.getItem(KEY_BAN))))/3600000).toFixed(1);
-    document.getElementById('formContainer').innerHTML =
-      `<img src="https://images-ext-1.discordapp.net/external/mcL28drH0nyJCD4bcHUmlke8pJTPaa2C9sh7dHrpm5s/%3Fsize%3D1024/https/cdn.discordapp.com/icons/1425112529302192148/a_5049012ee1481686fb0452ccff641f99.gif?width=100&height=100" class="logo">
-      <h1>Chill X Staff Application</h1>
-      <div class="blocked">You already submitted an application.<br><br>
-      🚫 You cannot submit again for ${BAN_HOURS} hours.<br>
-      <small style="opacity:.6">Come back in ~${left} hours.</small></div>`;
-  }
-  if(isBanned()) { showBlocked(); }
+    // ---------- small utilities ----------
+    function qs(id){return document.getElementById(id)}
+    function setStatus(text, cls){const s = qs('status'); s.textContent = text; s.className = 'capsule ' + (cls||'muted')}
 
-  // -- Main form logic
-  document.getElementById("staffForm") && document.getElementById("staffForm").addEventListener("submit",async function(ev){
-    ev.preventDefault();
-    if(isBanned()) { showBlocked(); return false;}
-    let formMessage = document.getElementById('formMessage');
-    formMessage.innerText = ""; formMessage.style.display="none";
-
-    // --- Check captcha
-    let uc = document.getElementById('captcha').value.trim();
-    if(uc!==""+(capA+capB)) {
-      formMessage.innerText = "Captcha incorrect. Try again!";
-      formMessage.style.display = "block";
-      genCaptcha();
-      return false;
+    // ---------- captcha (client side) ----------
+    let captcha = {token:null, answer:null, question:null, created:0};
+    function genCaptcha(){
+      const a = Math.floor(Math.random()*12)+1;
+      const b = Math.floor(Math.random()*12)+1;
+      const ops = ['+','-'];
+      const op = ops[Math.floor(Math.random()*ops.length)];
+      const q = `${a} ${op} ${b}`;
+      const ans = op==='+'? a+b : a-b;
+      captcha = { token: Math.random().toString(36).slice(2), question: q, answer: String(ans), created: Date.now() };
+      qs('captchaQuestion').textContent = q + ' = ?';
+      qs('captchaToken').value = captcha.token;
     }
 
-    // --- Gather form data
-    let userid = document.getElementById('userid').value.trim();
-    let username = document.getElementById('username').value.trim();
-    let email = document.getElementById('email').value.trim();
-    let role = document.getElementById('role').value;
-    let why = document.getElementById('why').value.trim();
-    let ismod = document.getElementById('ismod').value;
-    let experience = document.getElementById('experience').value;
-    let exp_period = document.getElementById('exp_period').value;
-    let extra = document.getElementById('extra').value.trim();
-
-    // --- Time in IST ---
-    function getIST() {
-      let now = new Date();
-      let ISToff=5.5*60*60*1000;
-      let ist = new Date(now.getTime()+ISToff);
-      return ist.toLocaleString('en-IN', { hour12:false });
-    }
-
-    // --- Gather IP/location via public API (optional, not used for block since JS has no access) ---
-    let ip = "Unavailable", location = "Unavailable";
-    try {
-      let g = await fetch('https://ipinfo.io/json?token=9b0cc42d9165e7').then(r=>r.json());
-      ip = g.ip||"Unavailable";
-      location = (g.city&&g.country)?`${g.city}, ${g.country}`:g.country||"Unavailable";
-    } catch(e){}
-
-    // -- Build Discord webhook payload --
-    let data = {
-      "embeds": [{
-        "title": "New Staff Application - Chill X",
-        "color": 0x0fffff,
-        "fields": [
-          { name: "Discord User ID", value: userid, inline: true },
-          { name: "Discord Username", value: username, inline: true },
-          { name: "Email", value: email, inline: false },
-          { name: "Joining As", value: role, inline: true },
-          { name: "Currently Mod Anywhere?", value: ismod, inline: true },
-          { name: "Experience", value: `${experience} ${exp_period}`, inline: true },
-          { name: "Why They Want to Join", value: why, inline: false },
-          ...(extra ? [{ name: "Anything Else?", value: extra, inline: false }] : []),
-          { name: "Form IP/location", value: `${ip} / ${location}`, inline: true },
-          { name: "Time (IST)", value: getIST(), inline: true }
-        ],
-        "footer": { "text":"Form generated by Chill X AI Staff Portal" }
-      }]
-    };
-    let submitBtn = document.getElementById('submitBtn');
-    submitBtn.disabled=true; submitBtn.innerText = "Submitting...";
-
-    // --- Send to your Discord webhook ---
-    try {
-      let resp = await fetch("https://discord.com/api/webhooks/1434902352820699186/R_l_4eMPPU0G7fUe2-QG3S9-uHYDntE8fAk0In4JL8GtFjoJKjsCcK-NCnd7DdWlwo7V",{
-        method:"POST",headers:{"Content-Type":"application/json"},
-        body: JSON.stringify(data)
-      });
-      if(resp.ok) {
-        formMessage.style.display="block";
-        formMessage.innerText = "✅ Submitted! You can't submit again for 48 hours.";
-        banSubmit();
-      } else {
-        formMessage.style.display="block";
-        formMessage.innerText="❌ Error submitting. Try later!";
-        submitBtn.disabled=false; submitBtn.innerText = "Submit";
+    // ---------- IP & geo (client-side best-effort) ----------
+    async function fetchIpGeo(){
+      try{
+        // ipapi.co is commonly available; this is client-side best-effort.
+        const r = await fetch('https://ipapi.co/json/');
+        if (!r.ok) throw new Error('geo failed');
+        const j = await r.json();
+        return { ip: j.ip || j.network || 'unknown', city: j.city, region: j.region, country: j.country_name, lat: j.latitude || j.lat, lon: j.longitude || j.lon, isp: j.org };
+      }catch(e){
+        try{ const r2 = await fetch('https://api.ipify.org?format=json'); if(r2.ok){ const j=await r2.json(); return { ip: j.ip }; } }
+        catch(e2){}
+        return { ip: 'unknown' };
       }
-    } catch(e){
-      formMessage.style.display="block";
-      formMessage.innerText="❌ Network error. Try again later!";
-      submitBtn.disabled=false; submitBtn.innerText = "Submit";
     }
-    return false;
-  });
-</script>
+
+    // ---------- rate check ----------
+    function checkRate(){
+      const last = localStorage.getItem(SUBMIT_KEY);
+      if(!last) return false;
+      const diff = Date.now() - Number(last);
+      return diff < RATE_LIMIT_MS;
+    }
+    function msToH(ms){ const s = Math.ceil(ms/1000); const h = Math.floor(s/3600); const m = Math.floor((s%3600)/60); const sec = s%60; return `${h}h ${m}m ${sec}s`; }
+
+    // ---------- form submit ----------
+    document.addEventListener('DOMContentLoaded', ()=>{
+      setStatus('Ready');
+      genCaptcha();
+
+      // restore ban state
+      if (checkRate()){
+        const last = Number(localStorage.getItem(SUBMIT_KEY));
+        const left = RATE_LIMIT_MS - (Date.now() - last);
+        qs('submitBtn').disabled = true;
+        qs('msg').innerHTML = '<span class="error">You have recently submitted. Try again in '+msToH(left)+'</span>';
+      }
+
+      qs('regen').addEventListener('click', ()=>{ genCaptcha(); qs('captchaAnswer').value = ''; });
+
+      qs('appForm').addEventListener('submit', async (e)=>{
+        e.preventDefault();
+        qs('msg').textContent = '';
+        if (checkRate()){ qs('msg').innerHTML = '<span class="error">Rate limited. One submission per 48 hours.</span>'; return; }
+
+        // gather values
+        const discordId = qs('discordId').value.trim();
+        const discordUsername = qs('discordUsername').value.trim();
+        const email = qs('email').value.trim();
+        const teamChoice = qs('teamChoice').value;
+        const whyJoin = qs('whyJoin').value.trim();
+        const isModAnywhere = document.querySelector('input[name="isModAnywhere"]:checked')?.value || 'No';
+        const experienceNumber = qs('experienceNumber').value.trim();
+        const experienceUnit = qs('experienceUnit').value;
+        const extraMessage = qs('extraMessage').value.trim();
+        const captchaAnswer = qs('captchaAnswer').value.trim();
+        const captchaToken = qs('captchaToken').value;
+
+        // client-side validations
+        if(!discordId||!discordUsername||!email||!teamChoice||!whyJoin||!experienceNumber||!extraMessage){ qs('msg').innerHTML = '<span class="error">Please fill all required fields.</span>'; return; }
+        if(!/^[0-9]+$/.test(experienceNumber)){ qs('msg').innerHTML = '<span class="error">Experience must be numbers only.</span>'; return; }
+        if(!captchaToken || !captcha.answer){ /* fallback in case */ }
+        // verify captcha client-side
+        if(String(captchaAnswer) !== String(captcha.answer)){
+          qs('msg').innerHTML = '<span class="error">Captcha wrong. Try new one.</span>';
+          genCaptcha(); return;
+        }
+
+        // disable UI
+        qs('submitBtn').disabled = true; qs('submitBtn').textContent = 'Sending...';
+
+        // fetch ip & geo
+        const geo = await fetchIpGeo();
+        const istTime = new Date().toLocaleString('en-GB', { timeZone: 'Asia/Kolkata' });
+
+        // prepare discord embed payload (webhook)
+        const embed = {
+          title: 'New Staff Application — Chill X',
+          color: 0x00ffd5,
+          fields: [
+            { name: 'Discord ID', value: discordId, inline: true },
+            { name: 'Discord Username', value: discordUsername, inline: true },
+            { name: 'Email', value: email, inline: true },
+            { name: 'Team Applying For', value: teamChoice, inline: true },
+            { name: 'Why join', value: whyJoin.slice(0,1024) },
+            { name: 'Currently Mod Anywhere?', value: isModAnywhere, inline: true },
+            { name: 'Experience', value: experienceNumber + ' ' + experienceUnit, inline: true },
+            { name: 'Extra Message', value: extraMessage || '—' }
+          ],
+          footer: { text: `IP: ${geo.ip || 'unknown'} · IST: ${istTime}` },
+          timestamp: new Date().toISOString()
+        };
+        if(geo.city || geo.region || geo.country){ embed.fields.push({ name: 'IP Location', value: `${geo.city||'-'}, ${geo.region||'-'}, ${geo.country||'-'} · ISP: ${geo.isp||'-'}` }); }
+        if(geo.lat && geo.lon){ embed.url = `https://www.google.com/maps/search/?api=1&query=${geo.lat},${geo.lon}`; }
+
+        const payload = { embeds: [embed] };
+
+        try{
+          const resp = await fetch(DISCORD_WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type':'application/json' }, body: JSON.stringify(payload) });
+          if (!resp.ok){ throw new Error('webhook_failed '+resp.status); }
+          // mark local storage to limit resubmission
+          localStorage.setItem(SUBMIT_KEY, Date.now().toString());
+          qs('msg').innerHTML = '<span class="success">Submitted! Your application has been sent.</span>';
+          setStatus('Submitted', 'success');
+        }catch(err){
+          console.error(err);
+          qs('msg').innerHTML = '<span class="error">Failed to send — browser may block direct webhook calls (CORS). Use a small server proxy if this fails.</span>';
+          setStatus('Failed', 'error');
+        }finally{
+          qs('submitBtn').disabled = true; qs('submitBtn').textContent = 'Submitted';
+        }
+      });
+
+      // make captcha answer available for client-side verify
+      // (we keep captcha.answer visible to JS in memory only)
+      // store the answer so submit checks it
+      Object.defineProperty(window, 'captcha', { value: captcha, writable: true });
+    });
+
+    // ---------- light tamper-deterrence (cosmetic, not secure) ----------
+    (function(){
+      // disabled context menu
+      document.addEventListener('contextmenu', e => e.preventDefault());
+      // disable common inspect/view-source shortcuts
+      document.addEventListener('keydown', function(e){
+        if (e.key === 'F12') e.preventDefault();
+        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C')) e.preventDefault();
+        if (e.ctrlKey && (e.key === 'U' || e.key === 'S')) e.preventDefault();
+      });
+      // prevent middle/left click from opening context menus on images (but don't break form)
+      document.addEventListener('mousedown', function(e){ if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA' && e.button === 2) e.preventDefault(); }, true);
+    })();
+  </script>
 </body>
 </html>
