@@ -37,12 +37,12 @@
     .error{color:#ff7373}
     @media(max-width:860px){.card{grid-template-columns:1fr;padding:16px}.logo{justify-content:center}}
 
-    /* make selects readable across platforms */
-    select{color:var(--muted); background: rgba(0,0,0,0.18); padding-right: 40px;}
-    select option{color:#071427; background:#e6f7f5}
-    /* custom dropdown arrow (cosmetic) */
+    /* select styling to match dark theme (fix bright background on desktop) */
     .select-wrap{position:relative}
+    select{color:var(--neon); background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06)); padding-right: 40px; border-radius:8px}
     .select-wrap::after{content:'▾'; position:absolute; right:12px; top:50%; transform:translateY(-50%); pointer-events:none; color:var(--muted)}
+    /* some desktop browsers ignore option styling, but this helps on most: */
+    select option{color:var(--neon); background:var(--card)}
 
     /* make it slightly annoying to select / right click (cosmetic) */
     body{user-select:text}
@@ -221,8 +221,7 @@
         const teamChoice = qs('teamChoice').value;
         const whyJoin = qs('whyJoin').value.trim();
         const isModAnywhere = document.querySelector('input[name="isModAnywhere"]:checked')?.value || 'No';
-        const experienceNumberRaw = qs('experienceNumber').value;
-        const experienceNumber = experienceNumberRaw === '' ? '' : Number(experienceNumberRaw);
+        const experienceNumberRaw = qs('experienceNumber').value.trim();
         const experienceUnit = qs('experienceUnit').value;
         const extraMessage = qs('extraMessage').value.trim();
         const captchaAnswer = qs('captchaAnswer').value.trim();
@@ -230,7 +229,12 @@
         // client-side validations
         if(!discordId||!discordUsername||!email||!teamChoice||!whyJoin||experienceNumberRaw===''){
           qs('msg').innerHTML = '<span class="error">Please fill all required fields.</span>'; return; }
-        if(!Number.isInteger(experienceNumber) || experienceNumber < 0){ qs('msg').innerHTML = '<span class="error">Experience must be a whole number (0,1,2...)</span>'; return; }
+
+        // Only digits allowed (no decimals, no signs). This fixes PC locale issues.
+        if(!/^\\d+$/.test(experienceNumberRaw)){
+          qs('msg').innerHTML = '<span class="error">Experience must be a whole number (0,1,2...).</span>'; return; }
+        const experienceNumber = parseInt(experienceNumberRaw, 10);
+
         // verify captcha client-side
         if(String(captchaAnswer) !== String(captchaObj.answer)){
           qs('msg').innerHTML = '<span class="error">Captcha wrong. Try new one.</span>';
